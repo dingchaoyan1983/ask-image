@@ -24,6 +24,8 @@ npm link
 
 ### opencode
 
+#### 1. 注册 MCP Server
+
 在 `opencode.json` 的 `mcpServers` 中添加：
 
 ```json
@@ -38,6 +40,40 @@ npm link
   }
 }
 ```
+
+#### 2. 配置 opencode-easy-vision 插件
+
+在 `opencode.json` 中添加 `plugins.vision` 配置，使不支持识图的模型自动通过此 MCP 分析图片：
+
+```json
+{
+  "plugins": {
+    "vision": {
+      "imageAnalysisTool": "ask-image_ask_image",
+      "models": ["*"],
+      "promptTemplate": null,
+      "tempDir": null,
+      "cleanupAfterHours": 24
+    }
+  }
+}
+```
+
+**vision 配置项：**
+
+| 字段 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `imageAnalysisTool` | string | - | MCP 工具名，固定为 `ask-image_ask_image` |
+| `models` | string[] | `["*"]` | 启用插件的模型列表，`"*"` 匹配所有模型 |
+| `promptTemplate` | string | `null` | 自定义提示模板，支持 `{imageList}`、`{imageCount}`、`{toolName}`、`{userText}` 变量，`null` 使用内置默认模板 |
+| `tempDir` | string | `null` | 粘贴图片暂存目录，`null` 使用系统临时目录 + `opencode-easy-vision/` |
+| `cleanupAfterHours` | number | `24` | 插件启动时清理超过此小时数的临时文件 |
+
+**models 匹配规则：**
+- `"*"` — 所有模型
+- `"provider/*"` — 指定 provider 的所有模型
+- `"*/model"` — 任意 provider 的指定模型
+- `"provider/model"` — 精确匹配
 
 ### Claude Desktop
 
