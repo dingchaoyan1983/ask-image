@@ -6,7 +6,10 @@ MCP 工具，用于在主模型不支持图片识别时，调用视觉模型获�
 
 ```bash
 npm install
+npm link
 ```
+
+安装后即可在全局使用 `ask-image` 命令。
 
 ## 环境变量
 
@@ -27,8 +30,7 @@ npm install
 {
   "mcpServers": {
     "ask-image": {
-      "command": "node",
-      "args": ["/path/to/ask-image/index.mjs"],
+      "command": "ask-image",
       "env": {
         "ASK_IMAGE_API_KEY": "your-api-key"
       }
@@ -45,8 +47,7 @@ npm install
 {
   "mcpServers": {
     "ask-image": {
-      "command": "node",
-      "args": ["/path/to/ask-image/index.mjs"],
+      "command": "ask-image",
       "env": {
         "ASK_IMAGE_API_KEY": "your-api-key"
       }

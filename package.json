@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "MCP Server for ask_image - automatically describe images using vision models",
   "main": "index.mjs",
+  "bin": {
+    "ask-image": "./index.mjs"
+  },
   "type": "module",
   "scripts": {
     "start": "node index.mjs"
