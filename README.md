@@ -43,37 +43,55 @@ npm link
 
 #### 2. 配置 opencode-easy-vision 插件
 
-在 `opencode.json` 中添加 `plugins.vision` 配置，使不支持识图的模型自动通过此 MCP 分析图片：
+在 `opencode.json` 的 `plugins` 数组中添加：
 
 ```json
 {
-  "plugins": {
-    "vision": {
-      "imageAnalysisTool": "ask-image_ask_image",
-      "models": ["*"],
-      "promptTemplate": null,
-      "tempDir": null,
-      "cleanupAfterHours": 24
-    }
-  }
+  "plugins": [
+    "opencode-easy-vision"
+  ]
 }
 ```
 
-**vision 配置项：**
+然后创建 `opencode-easy-vision.jsonc` 配置文件，使不支持识图的模型自动通过此 MCP 分析图片：
+
+```jsonc
+{
+  // 启用插件的模型列表
+  // 通配符: "*" = 所有, "provider/*" = 指定 provider 所有模型,
+  // "*/model" = 任意 provider 指定模型, "provider/model" = 精确匹配
+  "models": [
+    "*"
+  ],
+
+  // MCP 工具名称，固定为 ask-image_ask_image
+  "imageAnalysisTool": "ask-image_ask_image",
+
+  // 自定义提示模板，支持以下变量:
+  //   {imageList}  — 换行分隔的 "- Image N: /path"
+  //   {imageCount} — 图片数量
+  //   {toolName}   — MCP 工具名
+  //   {userText}   — 用户原始文本 (可为空)
+  // 设为 null 使用内置默认模板
+  "promptTemplate": null,
+
+  // 粘贴图片暂存目录，null 使用系统临时目录 + opencode-easy-vision/
+  "tempDir": null,
+
+  // 插件启动时清理超过此小时数的临时文件
+  "cleanupAfterHours": 24
+}
+```
+
+**配置项说明：**
 
 | 字段 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
+| `models` | string[] | `["*"]` | 启用插件的模型列表 |
 | `imageAnalysisTool` | string | - | MCP 工具名，固定为 `ask-image_ask_image` |
-| `models` | string[] | `["*"]` | 启用插件的模型列表，`"*"` 匹配所有模型 |
-| `promptTemplate` | string | `null` | 自定义提示模板，支持 `{imageList}`、`{imageCount}`、`{toolName}`、`{userText}` 变量，`null` 使用内置默认模板 |
-| `tempDir` | string | `null` | 粘贴图片暂存目录，`null` 使用系统临时目录 + `opencode-easy-vision/` |
-| `cleanupAfterHours` | number | `24` | 插件启动时清理超过此小时数的临时文件 |
-
-**models 匹配规则：**
-- `"*"` — 所有模型
-- `"provider/*"` — 指定 provider 的所有模型
-- `"*/model"` — 任意 provider 的指定模型
-- `"provider/model"` — 精确匹配
+| `promptTemplate` | string | `null` | 自定义提示模板，支持变量插值，`null` 使用默认模板 |
+| `tempDir` | string | `null` | 图片暂存目录，`null` 使用系统临时目录 |
+| `cleanupAfterHours` | number | `24` | 临时文件过期清理时间（小时） |
 
 ### Claude Desktop
 
