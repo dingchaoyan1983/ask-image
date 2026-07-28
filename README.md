@@ -41,9 +41,19 @@ npm link
 }
 ```
 
-#### 2. 配置 opencode-easy-vision 插件
+#### 2. 安装并配置 opencode-easy-vision 插件
 
-在 `opencode.json` 的 `plugins` 数组中添加：
+**安装插件**（需要 opencode CLI v1.3.4+）：
+
+```bash
+# 全局安装（所有项目生效）
+opencode plugin opencode-easy-vision --global
+
+# 项目级安装（仅当前目录生效）
+opencode plugin opencode-easy-vision
+```
+
+或手动在 `opencode.json` 的 `plugins` 数组中添加：
 
 ```json
 {
