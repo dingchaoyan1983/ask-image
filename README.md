@@ -5,8 +5,7 @@ MCP 工具，用于在主模型不支持图片识别时，调用视觉模型获�
 ## 安装
 
 ```bash
-npm install
-npm link
+npm install -g mcp-ask-image
 ```
 
 安装后即可在全局使用 `ask-image` 命令。
