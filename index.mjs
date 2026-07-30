@@ -108,6 +108,7 @@ async function callVisionAPI(base64Data, prompt) {
         },
       ],
       max_tokens: MAX_TOKENS,
+      thinking: { type: "disabled" },
     }),
     signal: AbortSignal.timeout(120000),
   });

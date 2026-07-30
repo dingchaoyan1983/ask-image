@@ -1,6 +1,6 @@
 {
   "name": "mcp-ask-image",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP Server for ask_image - automatically describe images using vision models",
   "main": "index.mjs",
   "bin": {
